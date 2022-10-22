@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import { stdout } from 'process';
+import {useState} from 'react';
 import './App.css';
 
 function App() {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [reversedString, setReversedString] = useState<string>("");
+  const handleUpdateValue = (e: any): void => {
+    const input = e.currentTarget.value;
+    setInputValue(input);
+  };
+
+  const reverseString = (): void => {
+    let reverseString = "";
+    for (let i = 0; i < inputValue.length; i++) {
+      reverseString = inputValue.charAt(i) + reverseString;
+    }
+    setReversedString(reverseString);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hi. Enter in string and click button to reverse it.</h1>
+      <input onChange={handleUpdateValue} value={inputValue}></input>
+      <button onClick={reverseString}>Reverse String</button>
+      <p>{reversedString}</p>
     </div>
   );
 }
